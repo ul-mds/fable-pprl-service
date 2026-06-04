@@ -1,16 +1,17 @@
 [project]
-name = "pprl-service"
+name = "fable-pprl-service"
 version = "0.1.5"
-description = "HTTP-based service for performing privacy-preserving record linkage with Bloom filters."
+description = "HTTP-based service for performing privacy-preserving record linkage with Bloom filters in the FABLE ecosystem."
 authors = [
-    {name = "Maximilian Jugl", email = "Maximilian.Jugl@medizin.uni-leipzig.de"}
+    {name = "Maximilian Jugl"},
+    {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "fastapi[standard] (>=0.115.11,<0.116.0)",
-    "pprl-model (>=0.1.6,<0.2.0)",
-    "pprl-core (>=0.1.4,<0.2.0)"
+    "fable-core (>=0.1.5,<0.2.0)",
+    "fable-model (>=0.1.7,<0.2.0)",
 ]
 license = "MIT"
 keywords = ["record linkage", "privacy", "bloom filter", "bitarray", "cryptography", "service", "api"]
@@ -25,10 +26,10 @@ classifiers = [
 ]
 
 [project.scripts]
-pprl-service = "pprl_service.main:run_server"
+fable-pprl-service = "pprl_service.main:run_server"
 
 [project.urls]
-repository = "https://github.com/ul-mds/pprl-service"
+repository = "https://github.com/ul-mds/fable-pprl-service"
 
 [tool.poetry]
 packages = [{ include = "pprl_service" }]
@@ -49,3 +50,6 @@ build-backend = "poetry.core.masonry.api"
 ruff = ">=0.9.0"
 pytest = ">=8.3.0"
 faker = "^37.0.0"
+pytest-cov = "^7.1.0"
+pre-commit = "^4.6.0"
+readme-coverage-badger = "^1.1.0"

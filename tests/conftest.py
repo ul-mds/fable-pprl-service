@@ -1,10 +1,10 @@
 import random
 import uuid
 
-import pprl_core.bits
+import fable_core.bits
 import pytest
 from bitarray import bitarray
-from pprl_model import BitVectorEntity
+from fable_model import BitVectorEntity
 from starlette.testclient import TestClient
 
 from pprl_service.main import app
@@ -47,7 +47,7 @@ def bit_vector_entity_factory(bitarray_factory, uuid4):
     def _supply_bit_vector_entity():
         return BitVectorEntity(
             id=uuid4(),
-            value=pprl_core.bits.to_base64(bitarray_factory()),
+            value=fable_core.bits.to_base64(bitarray_factory()),
         )
 
     return _supply_bit_vector_entity

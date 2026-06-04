@@ -7,8 +7,8 @@ from typing import TypeVar, Callable
 
 import pytest
 from faker import Faker
-from pprl_core import bits
-from pprl_model import (
+from fable_core import bits
+from fable_model import (
     AttributeValueEntity,
     WeightedAttributeConfig,
     MaskConfig,

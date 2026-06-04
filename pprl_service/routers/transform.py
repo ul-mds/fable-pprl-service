@@ -2,8 +2,8 @@ import string
 from typing import TypeVar, Callable
 
 from fastapi import HTTPException, APIRouter
-from pprl_core.phonetics_extra import ColognePhonetics
-from pprl_core.transform import (
+from fable_core.phonetics_extra import ColognePhonetics
+from fable_core.transform import (
     StringTransformFn,
     normalize,
     character_filter,
@@ -12,7 +12,7 @@ from pprl_core.transform import (
     mapping,
     phonetic_code,
 )
-from pprl_model import (
+from fable_model import (
     Transformer,
     NormalizationTransformer,
     CharacterFilterTransformer,

@@ -1,6 +1,6 @@
 import uvicorn
 from fastapi import FastAPI
-from pprl_model import HealthResponse
+from fable_model import HealthResponse
 
 from pprl_service.routers import match, transform, mask
 

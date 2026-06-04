@@ -6,8 +6,8 @@ from typing import TypeVar, Callable
 
 from bitarray import bitarray
 from fastapi import APIRouter, HTTPException
-from pprl_core import harden, bits, common
-from pprl_model import (
+from fable_core import harden, bits, common
+from fable_model import (
     AttributeValueEntity,
     HashAlgorithm,
     HashFunction,

@@ -1,18 +1,18 @@
 import binascii
 
-import pprl_core
+import fable_core
 from bitarray import bitarray
 from fastapi import APIRouter, HTTPException
-from pprl_core.similarity import SimilarityFn
-from pprl_model import SimilarityMeasure, VectorMatchRequest, VectorMatchResponse, Match, MatchMethod
+from fable_core.similarity import SimilarityFn
+from fable_model import SimilarityMeasure, VectorMatchRequest, VectorMatchResponse, Match, MatchMethod
 from starlette import status
 
 router = APIRouter()
 
 _similarity_mapping: dict[SimilarityMeasure, SimilarityFn] = {
-    SimilarityMeasure.cosine: pprl_core.similarity.cosine,
-    SimilarityMeasure.dice: pprl_core.similarity.dice,
-    SimilarityMeasure.jaccard: pprl_core.similarity.jaccard,
+    SimilarityMeasure.cosine: fable_core.similarity.cosine,
+    SimilarityMeasure.dice: fable_core.similarity.dice,
+    SimilarityMeasure.jaccard: fable_core.similarity.jaccard,
 }
 
 
@@ -22,7 +22,7 @@ def _construct_bitarray_lookup_dict(match_req: VectorMatchRequest) -> dict[str, 
 
     for bitarray_entity in match_req.domain + match_req.range:
         try:
-            bitarray_lookup_dict[bitarray_entity.value] = pprl_core.bits.from_base64(bitarray_entity.value)
+            bitarray_lookup_dict[bitarray_entity.value] = fable_core.bits.from_base64(bitarray_entity.value)
         except (ValueError, binascii.Error):
             # from_base64 will throw a ValueError if invalid b64 is found
             failed_b64decode_entity_ids.add(bitarray_entity.id)

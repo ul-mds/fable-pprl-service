@@ -9,6 +9,12 @@ This package implements an HTTP service for PPRL based on Bloom filters used in 
 It covers the preprocessing and masking of records, as well as matching on masked records.
 The service is built with [FastAPI](https://fastapi.tiangolo.com/).
 
+## Deployment
+
+```commandline
+docker run -p 8080:8080 ghcr.io/ul-mds/fable-pprl-service:latest
+```
+
 ## Service endpoints
 
 The service exposes each of the aforementioned steps as an endpoint each.

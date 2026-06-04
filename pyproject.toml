@@ -10,8 +10,8 @@ readme = "README.md"
 requires-python = ">=3.10"
 dependencies = [
     "fastapi[standard] (>=0.115.11,<0.116.0)",
-    "pprl-model (>=0.1.6,<0.2.0)",
-    "pprl-core (>=0.1.4,<0.2.0)"
+    "fable-core (>=0.1.5,<0.2.0)",
+    "fable-model (>=0.1.7,<0.2.0)",
 ]
 license = "MIT"
 keywords = ["record linkage", "privacy", "bloom filter", "bitarray", "cryptography", "service", "api"]

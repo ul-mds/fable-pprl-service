@@ -1,4 +1,4 @@
-from pprl_model import MatchConfig, SimilarityMeasure, VectorMatchRequest, VectorMatchResponse, Match, MatchMethod
+from fable_model import MatchConfig, SimilarityMeasure, VectorMatchRequest, VectorMatchResponse, Match, MatchMethod
 from starlette import status
 
 

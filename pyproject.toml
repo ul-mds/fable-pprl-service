@@ -1,7 +1,7 @@
 [project]
 name = "fable-pprl-service"
 version = "0.1.5"
-description = "HTTP-based service for performing privacy-preserving record linkage with Bloom filters."
+description = "HTTP-based service for performing privacy-preserving record linkage with Bloom filters in the FABLE ecosystem."
 authors = [
     {name = "Maximilian Jugl"},
     {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}

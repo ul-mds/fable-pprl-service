@@ -1,13 +1,20 @@
-This package implements an HTTP service for PPRL based on Bloom filters.
+![GitHub Release](https://img.shields.io/github/v/release/ul-mds/fable-pprl-service)
+![Code Coverage](https://img.shields.io/badge/Coverage-92%25-green.svg)
+![License](https://img.shields.io/github/license/ul-mds/fable-pprl-service)
+
+# FABLE PPRL Service
+
+This package implements an HTTP service for PPRL based on Bloom filters used in the FABLE (**F**ederated
+**A**nonymized **B**loom filter **L**inkage **E**ngine) ecosystem.
 It covers the preprocessing and masking of records, as well as matching on masked records.
 The service is built with [FastAPI](https://fastapi.tiangolo.com/).
 
-# Service endpoints
+## Service endpoints
 
 The service exposes each of the aforementioned steps as an endpoint each.
 Their behavior is freely configurable.
 
-## Record preprocessing
+### Record preprocessing
 
 `/transform` enables preprocessing of records using a variety of transformers that can be applied to record fields.
 These transformers can be applied to all attributes ("globally") or to single attributes.
@@ -69,7 +76,7 @@ print(r.json()["entities"][0])
 # => {'id': '001', 'attributes': {'given_name': 'john', 'last_name': 'doe', 'date_of_birth': '1978-06-05', 'gender': 'm'}}
 ```
 
-## Record masking
+### Record masking
 
 `/mask` enables masking of records based on Bloom filter techniques.
 It supports a variety of encoding and hardening methods, as well as control over various bit vector generation
@@ -132,7 +139,7 @@ print(r.json()["entities"][0])
 # => {'id': '001', 'value': 'RBDAZOkBgFOKMQGGBAJxDSfAQKCAGADyqbB+bQu6cjIkc58MJEgqBbCVgwGCoTSTA6WJA4IDkQEgEQYshQEgLA=='}
 ```
 
-## Bit vector matching
+### Bit vector matching
 
 `/match` enables the computation of similarities between bit vector pairs.
 It implements the Dice coefficient, Jaccard index and Cosine similarity as available measures.
@@ -172,6 +179,6 @@ print(r.json()["matches"])
 # => [{'domain': {'id': 'D001', 'value': 'RBDAZOkBgFOKMQGGBAJxDSfAQKCAGADyqbB+bQu6cjIkc58MJEgqBbCVgwGCoTSTA6WJA4IDkQEgEQYshQEgLA=='}, 'range': {'id': 'R002', 'value': 'QBBAYOEBgFOKMREGBAZxDSfAQKGEEAJyydB4bQO6dl4gc58EJEgiAZCVgwGCoDSXA6GIA4ODkQEgEAQEhQAgJA=='}, 'similarity': 0.7771739130434783}]
 ```
 
-# License
+## License
 
 MIT.

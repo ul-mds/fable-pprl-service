@@ -1,9 +1,10 @@
 [project]
-name = "pprl-service"
+name = "fable-pprl-service"
 version = "0.1.5"
 description = "HTTP-based service for performing privacy-preserving record linkage with Bloom filters."
 authors = [
-    {name = "Maximilian Jugl", email = "Maximilian.Jugl@medizin.uni-leipzig.de"}
+    {name = "Maximilian Jugl"},
+    {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}
 ]
 readme = "README.md"
 requires-python = ">=3.10"
@@ -25,10 +26,10 @@ classifiers = [
 ]
 
 [project.scripts]
-pprl-service = "pprl_service.main:run_server"
+fable-pprl-service = "pprl_service.main:run_server"
 
 [project.urls]
-repository = "https://github.com/ul-mds/pprl-service"
+repository = "https://github.com/ul-mds/fable-pprl-service"
 
 [tool.poetry]
 packages = [{ include = "pprl_service" }]

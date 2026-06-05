@@ -7,7 +7,7 @@ authors = [
     {name = "Paul Brassel", email = "paul.brassel@medizin.uni-leipzig.de"}
 ]
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = [
     "fastapi[standard] (>=0.115.11,<1)",
     "fable-core (>=0.1.5,<0.2.0)",
@@ -24,7 +24,6 @@ classifiers = [
     "Topic :: Scientific/Engineering",
     "Topic :: Security :: Cryptography",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",

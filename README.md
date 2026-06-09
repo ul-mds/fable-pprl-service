@@ -27,6 +27,7 @@ These transformers can be applied to all attributes ("globally") or to single at
 
 ```python
 import httpx
+import json
 
 r = httpx.post("http://localhost:8000/transform/", json={
     "config": {
@@ -65,6 +66,7 @@ r = httpx.post("http://localhost:8000/transform/", json={
             "attribute_name": "gender",
             "transformers": [
                 {
+                    "name": "mapping",
                     "mapping": {
                         "male": "m",
                         "female": "f"
@@ -78,8 +80,21 @@ r = httpx.post("http://localhost:8000/transform/", json={
 
 assert r.status_code == 200
 
-print(r.json()["entities"][0])
-# => {'id': '001', 'attributes': {'given_name': 'john', 'last_name': 'doe', 'date_of_birth': '1978-06-05', 'gender': 'm'}}
+print(json.dumps(r.json()["entities"], indent=2))
+```
+
+```console
+[
+  {
+    "id": "001",
+    "attributes": {
+      "given_name": "john",
+      "last_name": "doe",
+      "date_of_birth": "1978-06-05",
+      "gender": "m"
+    }
+  }
+]
 ```
 
 ### Record masking
@@ -90,6 +105,7 @@ parameters.
 
 ```python
 import httpx
+import json
 
 r = httpx.post("http://localhost:8000/mask/", json={
     "config": {
@@ -141,22 +157,35 @@ r = httpx.post("http://localhost:8000/mask/", json={
 })
 
 assert r.status_code == 200
-print(r.json()["entities"][0])
-# => {'id': '001', 'value': 'RBDAZOkBgFOKMQGGBAJxDSfAQKCAGADyqbB+bQu6cjIkc58MJEgqBbCVgwGCoTSTA6WJA4IDkQEgEQYshQEgLA=='}
+print(json.dumps(r.json()["entities"], indent=2))
+```
+
+```console
+[
+  {
+    "id": "001",
+    "value": "QBBAYOEBgFOKMREGBAZxDSfAQKGEEAJyydB4bQO6dl4gc58EJEgiAZCVgwGCoDSXA6GIA4ODkQEgEAQEhQAgJA=="
+  }
+]
 ```
 
 ### Bit vector matching
 
 `/match` enables the computation of similarities between bit vector pairs.
-It implements the Dice coefficient, Jaccard index and Cosine similarity as available measures.
+It implements different similarity measures and aggregation methods if multiple similarity measures are defined.
 
 ```python
 import httpx
+import json
 
 r = httpx.post("http://localhost:8000/match/", json={
     "config": {
-        "measure": "jaccard",
-        "threshold": 0.7
+        "measures": ["jaccard", "cosine"],
+        "thresholds": 0.7,
+        "aggregator": "avg",
+        "aggregator_args": {
+            "weights": [2, 1]
+        }
     },
     "domain": [
         {
@@ -181,8 +210,27 @@ r = httpx.post("http://localhost:8000/match/", json={
 })
 
 assert r.status_code == 200
-print(r.json()["matches"])
-# => [{'domain': {'id': 'D001', 'value': 'RBDAZOkBgFOKMQGGBAJxDSfAQKCAGADyqbB+bQu6cjIkc58MJEgqBbCVgwGCoTSTA6WJA4IDkQEgEQYshQEgLA=='}, 'range': {'id': 'R002', 'value': 'QBBAYOEBgFOKMREGBAZxDSfAQKGEEAJyydB4bQO6dl4gc58EJEgiAZCVgwGCoDSXA6GIA4ODkQEgEAQEhQAgJA=='}, 'similarity': 0.7771739130434783}]
+print(json.dumps(r.json()["matches"], indent=2))
+```
+
+```console
+[
+  {
+    "domain": {
+      "id": "D001",
+      "value": "RBDAZOkBgFOKMQGGBAJxDSfAQKCAGADyqbB+bQu6cjIkc58MJEgqBbCVgwGCoTSTA6WJA4IDkQEgEQYshQEgLA=="
+    },
+    "range": {
+      "id": "R002",
+      "value": "QBBAYOEBgFOKMREGBAZxDSfAQKGEEAJyydB4bQO6dl4gc58EJEgiAZCVgwGCoDSXA6GIA4ODkQEgEAQEhQAgJA=="
+    },
+    "similarities": [
+      0.7771739130434783,
+      0.8753097187762677
+    ],
+    "aggregated_similarity": 0.8098858482877415
+  }
+]
 ```
 
 ## License

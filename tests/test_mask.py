@@ -1,7 +1,7 @@
 import copy
 import datetime
 import itertools
-import re
+import random
 import uuid
 from typing import TypeVar, Callable
 
@@ -59,6 +59,13 @@ def _generate_person():
 
 
 _entities = [_generate_person() for _ in range(100)]
+_entities_with_missing_vals = [_generate_person() for _ in range(100)]
+
+# Insert a missing value in 10% of the entities.
+for _i in random.sample(range(100), 10):
+    entity = _entities_with_missing_vals[_i]
+    attribute = random.choice(("firstName", "lastName", "gender"))
+    entity.attributes[attribute] = ""
 
 _weighted_attributes = [
     WeightedAttributeConfig(
@@ -620,9 +627,8 @@ def test_different_vectors_for_rbf_and_clkrbf_with_different_average_token_count
         )
 
 
-# see https://github.com/ul-mds/pprl/issues/1
-# when an entity has an attribute value whose length is below the specified token size and no padding is specified,
-# then no tokens are inserted. this should raise a 400 at minimum.
+# When an entity has an attribute value whose length is below the specified token size and no padding is specified,
+# then no tokens are inserted.
 @pytest.mark.parametrize(
     "filter_type",
     [CLKFilter(filter_size=512, hash_values=5), RBFFilter(hash_values=5, seed=727), CLKRBFFilter(hash_values=5)],
@@ -641,10 +647,26 @@ def test_clk_with_empty_string_and_no_padding(test_client, filter_type):
 
     r = test_client.post("/mask", json=req.model_dump())
 
-    error_regex = (
-        r"value for `gender` on entity with ID `[0-9a-f-]+` did not produce any tokens - decrease the "
-        r"token size or add sufficient padding"
-    )
+    assert r.status_code == status.HTTP_200_OK
 
-    assert r.status_code == status.HTTP_400_BAD_REQUEST
-    assert re.match(error_regex, str(r.json()["detail"])) is not None
+
+@pytest.mark.parametrize(
+    "filter_type",
+    [CLKFilter(filter_size=512, hash_values=5), RBFFilter(hash_values=5, seed=727), CLKRBFFilter(hash_values=5)],
+    ids=["clk", "rbf", "clkrbf"],
+)
+def test_with_missing_attribute_vals(test_client, filter_type):
+    req = EntityMaskRequest(
+        config=MaskConfig(
+            token_size=2,
+            hash=HashConfig(
+                function=HashFunction(algorithms=[HashAlgorithm.sha1], key="s3cr3t"), strategy=RandomHash()
+            ),
+            filter=filter_type,
+        ),
+        entities=_entities_with_missing_vals,
+        attributes=[] if isinstance(filter_type, CLKFilter) else _weighted_attributes,
+    )
+    r = test_client.post("/mask", json=req.model_dump())
+
+    assert r.status_code == status.HTTP_200_OK

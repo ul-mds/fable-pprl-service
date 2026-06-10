@@ -86,7 +86,7 @@ assert r.status_code == 200
 print(json.dumps(r.json()["entities"], indent=2))
 ```
 
-```console
+```json
 [
   {
     "id": "001",
@@ -163,7 +163,7 @@ assert r.status_code == 200
 print(json.dumps(r.json()["entities"], indent=2))
 ```
 
-```console
+```json
 [
   {
     "id": "001",
@@ -216,7 +216,7 @@ assert r.status_code == 200
 print(json.dumps(r.json()["matches"], indent=2))
 ```
 
-```console
+```json
 [
   {
     "domain": {

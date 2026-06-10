@@ -30,7 +30,7 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 8080/tcp
 
-ENTRYPOINT [ "/usr/local/bin/python", "-m", "uvicorn", "pprl_service.main:app" ]
+ENTRYPOINT [ "/usr/local/bin/python", "-m", "uvicorn", "pprl_service.main:create_app", "--factory" ]
 CMD [ "--host", "0.0.0.0", "--port", "8080", "--workers", "4" ]
 
 HEALTHCHECK CMD [ "/usr/local/bin/python", "/app/pprl_service/healthcheck.py" ]

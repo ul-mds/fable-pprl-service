@@ -12,9 +12,11 @@ The service is built with [FastAPI](https://fastapi.tiangolo.com/).
 
 ## Deployment
 
-```commandline
-docker run -p 8080:8080 ghcr.io/ul-mds/fable-pprl-service:latest
+```bash
+docker run -p 8080:8080 -e ROLE=both ghcr.io/ul-mds/fable-pprl-service:latest
 ```
+
+See the [Configuration section](#configuration) for more details on all available options.
 
 ## Service endpoints
 
@@ -233,6 +235,17 @@ print(json.dumps(r.json()["matches"], indent=2))
   }
 ]
 ```
+
+## Configuration
+
+The following table shows all available configuration options.
+These variables can be defined in `.env`.
+
+| **Environment variable** | **Description**                                                                                                | **Default** |
+|--------------------------|----------------------------------------------------------------------------------------------------------------|-------------|
+| ROLE                     | Defines which endpoints are published. Needs to be either `both`, `data_owner` or `linkage_unit`.<sup>1)</sup> |             |
+
+<sup>1)</sup> If set to `data_owner`, the endpoints for transforming and masking are published, while `linkage_unit` will only publish the endpoint for matching.
 
 ## License
 

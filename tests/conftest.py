@@ -7,7 +7,7 @@ from bitarray import bitarray
 from fable_model import BitVectorEntity
 from starlette.testclient import TestClient
 
-from pprl_service.main import app
+from pprl_service.main import create_app
 
 
 @pytest.fixture(scope="session")
@@ -55,7 +55,7 @@ def bit_vector_entity_factory(bitarray_factory, uuid4):
 
 @pytest.fixture(scope="session")
 def test_app():
-    return app
+    return create_app()
 
 
 @pytest.fixture(scope="session")

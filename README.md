@@ -244,8 +244,10 @@ These variables can be defined in `.env`.
 | **Environment variable** | **Description**                                                                                                | **Default** |
 |--------------------------|----------------------------------------------------------------------------------------------------------------|-------------|
 | ROLE                     | Defines which endpoints are published. Needs to be either `both`, `data_owner` or `linkage_unit`.<sup>1)</sup> |             |
+| EXPOSE_DOCS              | If set to true, all FastAPI documentation endpoints are exposed.<sup>2)</sup>                                  | 1           |
 
 <sup>1)</sup> If set to `data_owner`, the endpoints for transforming and masking are published, while `linkage_unit` will only publish the endpoint for matching.
+<sup>2)</sup> The documentation endpoints are `/openapi.json`, `/docs` and `/redoc`.
 
 ## License
 

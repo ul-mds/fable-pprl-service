@@ -12,5 +12,6 @@ class Role(str, Enum):
 
 class Settings(BaseSettings):
     role: Literal[Role.both, Role.data_owner, Role.linkage_unit]
+    expose_docs: bool = True
 
     model_config = SettingsConfigDict(env_file=".env")

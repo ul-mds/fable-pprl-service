@@ -380,7 +380,7 @@ def _mask_rbf(mask_req: EntityMaskRequest):
     return entity_bas
 
 
-@router.post("/")
+@router.post("", response_model=EntityMaskResponse, status_code=status.HTTP_200_OK)
 async def mask_entities(mask_req: EntityMaskRequest) -> EntityMaskResponse:
     hardener_fn = _resolve_hardeners(mask_req.config)
     filter_type = mask_req.config.filter.type

@@ -55,7 +55,7 @@ def _construct_bitarray_lookup_dict(match_req: VectorMatchRequest) -> dict[str, 
     return bitarray_lookup_dict
 
 
-@router.post("/")
+@router.post("", response_model=VectorMatchResponse, status_code=status.HTTP_200_OK)
 async def perform_matching(match_req: VectorMatchRequest) -> VectorMatchResponse:
     sim_measures = match_req.config.measures
     sim_method = match_req.config.method

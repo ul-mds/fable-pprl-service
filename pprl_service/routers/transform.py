@@ -120,7 +120,7 @@ def _try_transform(config: TransformConfig, entity: AttributeValueEntity, value:
         )
 
 
-@router.post("/")
+@router.post("", response_model=EntityTransformResponse, status_code=status.HTTP_200_OK)
 async def preprocess_entities(transform_req: EntityTransformRequest) -> EntityTransformResponse:
     config = transform_req.config
     entities = transform_req.entities

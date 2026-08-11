@@ -16,6 +16,7 @@ WORKDIR /app
 
 COPY --from=builder /tmp/requirements.txt ./
 COPY ./pprl_service/ ./pprl_service/
+COPY pyproject.toml ./
 
 RUN set -ex && \
         addgroup -S nonroot && \

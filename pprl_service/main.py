@@ -12,6 +12,7 @@ def create_app() -> FastAPI:
 
     app = FastAPI(
         title="FABLE PPRL Service",
+        version=__version__,
         openapi_tags=[
             {
                 "name": "transform",
